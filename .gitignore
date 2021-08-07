@@ -8,6 +8,7 @@ __pycache__/
 
 # test files
 test.txt
+test.xlsx
 
 # Distribution / packaging
 .Python
