@@ -8,6 +8,8 @@ __pycache__/
 
 # test files
 test.txt
+test.xlsx
+Crimes_-_2001_to_Present.csv
 
 # Distribution / packaging
 .Python
@@ -130,3 +132,4 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+Crimes_-_2001_to_Present.csv
