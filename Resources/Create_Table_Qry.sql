@@ -13,9 +13,9 @@ CREATE TABLE "Chicago_crime" (
 	"Domestic" BOOLEAN,
 	"Year" INT,
 	"Latitude" FLOAT,
-	"Longitude" FLOAT
+	"Longitude" FLOAT,
+	"Month" Int
 )
 ;
 
 SELECT * FROM "Chicago_crime"
-
