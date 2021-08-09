@@ -1,8 +1,8 @@
 -- Drop if table exists
-DROP TABLE IF EXISTS "Chicago_crime";
+DROP TABLE IF EXISTS Chicago_crime;
 
 -- Create the table
-CREATE TABLE "Chicago_crime" (
+CREATE TABLE Chicago_crime (
     "ID" serial PRIMARY KEY,
     "Date" VARCHAR,
 	"IUCR" VARCHAR,
@@ -14,8 +14,8 @@ CREATE TABLE "Chicago_crime" (
 	"Year" INT,
 	"Latitude" FLOAT,
 	"Longitude" FLOAT,
-	"Month" Int
+	"Month" INT
 )
 ;
 
-SELECT * FROM "Chicago_crime"
+SELECT * FROM Chicago_crime;
