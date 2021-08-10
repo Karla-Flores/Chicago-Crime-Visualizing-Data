@@ -3,13 +3,13 @@ import sqlalchemy
 from sqlalchemy.ext.automap import automap_base
 from sqlalchemy.orm import Session
 from sqlalchemy import create_engine, func
-from flask import Flask, jsonify
+from flask import Flask, jsonify, render_template
 
 
 #################################################
 # Database Setup
 #################################################
-rds_connection_string = "postgres:postgres@localhost:5432/Project_03"
+rds_connection_string = "postgres:123@localhost:5432/Project_03"
 engine = create_engine(f'postgresql://{rds_connection_string}')
 Base = automap_base()
 Base.prepare(engine, reflect=True)
@@ -29,7 +29,21 @@ app = Flask(__name__)
 # #################################################
 
 @app.route("/")
-def welcome():
+def home():
+    session = Session(engine)
+
+#     """Return a list of all passenger names"""
+#     # Query all passengers
+    results_y = session.query(db.Year).group_by(db.Year)
+    results_d = session.query(db.Description).group_by(db.Description)
+    # results = session.query(db.Description).group_by(db.Description)
+    session.close()
+
+    return render_template('index.html', Year = [result[0] for result in results_y],Description = [result[0] for result in results_d])
+
+
+@app.route('/docs')
+def docs():
     """List all available api routes."""
     return (
         f"Available Routes:<br/>"
@@ -45,14 +59,23 @@ def years():
 
 #     """Return a list of all passenger names"""
 #     # Query all passengers
-    results = session.query(db.Year).distinct().all()
+    results = session.query(db.Year).distinct()
 
     session.close()
 
 #     # Convert list of tuples into normal list
     # all_years = list(np.ravel(results))
 
-    return jsonify(results.sort(reverse=True))
+    return jsonify(results)
+
+@app.route('/api/v1.0/<Year>/<Desciption>')
+def end(Year, Desciption):
+    # Create session from Python to DB
+    session = Session(engine)
+    # Selection
+    results = session.query(db.Month).count(db.Description)
+
+    return jsonify()
 
 
 # @app.route("/api/v1.0/passengers")
