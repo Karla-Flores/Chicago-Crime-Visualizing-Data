@@ -11,51 +11,49 @@ from flask import Flask, jsonify
 #################################################
 # Database Setup
 #################################################
-# engine = create_engine("sqlite:///titanic.sqlite")
+rds_connection_string = "postgres:postgres@localhost:5432/Project_03"
+engine = create_engine(f'postgresql://{rds_connection_string}')
+Base = automap_base()
+Base.prepare(engine, reflect=True)
+db = Base.classes.Chicago_crime
 
-# # reflect an existing database into a new model
-# Base = automap_base()
-# # reflect the tables
-# Base.prepare(engine, reflect=True)
+print(engine.table_names())
 
-# # Save reference to the table
-# Passenger = Base.classes.passenger
-
-# #################################################
-# # Flask Setup
-# #################################################
-# app = Flask(__name__)
+#################################################
+# Flask Setup
+#################################################
+app = Flask(__name__)
 
 
 # #################################################
-# # Flask Routes
+# Flask Routes
 # #################################################
 
-# @app.route("/")
-# def welcome():
-#     """List all available api routes."""
-#     return (
-#         f"Available Routes:<br/>"
-#         f"/api/v1.0/names<br/>"
-#         f"/api/v1.0/passengers"
-#     )
+@app.route("/")
+def welcome():
+    """List all available api routes."""
+    return (
+        f"Available Routes:<br/>"
+        f"/api/v1.0/Year<br/>"
+        f"/api/v1.0/Primary_Type"
+    )
 
 
-# @app.route("/api/v1.0/names")
-# def names():
+@app.route("/api/v1.0/Year")
+def years():
 #     # Create our session (link) from Python to the DB
-#     session = Session(engine)
+    session = Session(engine)
 
 #     """Return a list of all passenger names"""
 #     # Query all passengers
-#     results = session.query(Passenger.name).all()
+    results = session.query("Chicago_crime"."Year").all()
 
-#     session.close()
+    session.close()
 
 #     # Convert list of tuples into normal list
-#     all_names = list(np.ravel(results))
+    all_years = list(np.ravel(results))
 
-#     return jsonify(all_names)
+    return jsonify(all_years)
 
 
 # @app.route("/api/v1.0/passengers")
