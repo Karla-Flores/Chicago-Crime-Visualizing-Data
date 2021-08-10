@@ -1,10 +1,8 @@
 import numpy as np
-
 import sqlalchemy
 from sqlalchemy.ext.automap import automap_base
 from sqlalchemy.orm import Session
 from sqlalchemy import create_engine, func
-
 from flask import Flask, jsonify
 
 
@@ -16,6 +14,7 @@ engine = create_engine(f'postgresql://{rds_connection_string}')
 Base = automap_base()
 Base.prepare(engine, reflect=True)
 db = Base.classes.Chicago_crime
+
 
 print(engine.table_names())
 
@@ -46,14 +45,14 @@ def years():
 
 #     """Return a list of all passenger names"""
 #     # Query all passengers
-    results = session.query("Chicago_crime"."Year").all()
+    results = session.query(db.Year).distinct().all()
 
     session.close()
 
 #     # Convert list of tuples into normal list
-    all_years = list(np.ravel(results))
+    # all_years = list(np.ravel(results))
 
-    return jsonify(all_years)
+    return jsonify(results.sort(reverse=True))
 
 
 # @app.route("/api/v1.0/passengers")
