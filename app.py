@@ -13,8 +13,7 @@ rds_connection_string = "postgres:123@localhost:5432/Project_03"
 engine = create_engine(f'postgresql://{rds_connection_string}')
 Base = automap_base()
 Base.prepare(engine, reflect=True)
-db = Base.classes.Chicago_crime
-
+db = Base.classes.chicago_crime
 
 print(engine.table_names())
 
@@ -35,11 +34,11 @@ def home():
 #     """Return a list of all passenger names"""
 #     # Query all passengers
     results_y = session.query(db.Year).group_by(db.Year)
-    results_d = session.query(db.Description).group_by(db.Description)
-    # results = session.query(db.Description).group_by(db.Description)
+    results_d = session.query(db.Primary_Type).group_by(db.Primary_Type)
+    results_x = session.query(db.Description).group_by(db.Description)
     session.close()
 
-    return render_template('index.html', Year = [result[0] for result in results_y],Description = [result[0] for result in results_d])
+    return render_template('index.html', Year = [result[0] for result in results_y], Primary_Type = [result[0] for result in results_x],Description = [result[0] for result in results_d])
 
 
 @app.route('/docs')

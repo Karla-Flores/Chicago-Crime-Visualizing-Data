@@ -1,8 +1,8 @@
 -- Drop if table exists
-DROP TABLE IF EXISTS Chicago_crime;
+DROP TABLE IF EXISTS chicago_crime;
 
 -- Create the table
-CREATE TABLE Chicago_crime (
+CREATE TABLE chicago_crime (
     "ID" serial PRIMARY KEY,
     "Date" VARCHAR,
 	"IUCR" VARCHAR,
@@ -18,11 +18,24 @@ CREATE TABLE Chicago_crime (
 )
 ;
 
-SELECT * FROM "Chicago_crime";
-SELECT COUNT("Description") AS "Frequency"
-from "Chicago_crime"
+SELECT * FROM chicago_crime;
 
-select "Month", "Primary Type", count("Primary Type")
-from "Chicago_crime"
-group by "Month", "Primary Type"
-order by count desc
+SELECT "Year", "Month", "Primary_Type", COUNT("Primary_Type")
+FROM chicago_crime
+GROUP BY "Year", "Month", "Primary_Type"
+ORDER BY "Year" DESC;
+
+SELECT "Year", "Month", "Primary_Type", "Description","Arrest", COUNT("Arrest")
+FROM chicago_crime
+GROUP BY "Year", "Month", "Primary_Type", "Description","Arrest"
+ORDER BY "Year" DESC;
+
+SELECT "Year", "Month", "Primary_Type", "Description" , COUNT("Primary_Type")
+FROM chicago_crime
+GROUP BY "Year", "Month", "Primary_Type", "Description"
+ORDER BY "Year" DESC;
+
+SELECT "Year", "Month", "Primary_Type","Description","Location_Description", COUNT("Description")
+FROM chicago_crime
+GROUP BY "Year", "Month", "Primary_Type", "Location_Description", "Description"
+ORDER BY "Year" DESC;
