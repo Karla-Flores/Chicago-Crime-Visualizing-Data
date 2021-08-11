@@ -56,28 +56,18 @@ def api_list():
 
 
 @app.route('/api/v1.0/<year>')
-
 def filter_year(year):
-
     session = Session(engine)
-    
     result = session.query(db.primary_type, func.count(db.description)).group_by(db.year, db.primary_type).filter(db.year == year).order_by(func.count(db.description).desc()).all()
-
     session.close()
-    
     return jsonify(result)
 
 
 @app.route('/api/v1.0/<year>/<primary_type>')
-
 def filter_yr_type(year, primary_type):
-
     session = Session(engine)
-
     result = session.query(db.description, func.count(db.description)).group_by(db.year, db.primary_type, db.description).filter(db.year == year).filter(db.primary_type == primary_type).order_by(func.count(db.description).desc()).all()
-
     session.close()
-
     return jsonify(result)
 
 if __name__ == '__main__':

@@ -3,39 +3,48 @@ DROP TABLE IF EXISTS chicago_crime;
 
 -- Create the table
 CREATE TABLE chicago_crime (
-    "ID" serial PRIMARY KEY,
-    "Date" VARCHAR,
-	"IUCR" VARCHAR,
-	"Primary_Type" VARCHAR,
-	"Description" VARCHAR,
-	"Location_Description" VARCHAR,
-	"Arrest" BOOLEAN,
-	"Domestic" BOOLEAN,
-	"Year" INT,
-	"Latitude" FLOAT,
-	"Longitude" FLOAT,
-	"Month" INT
+    "id" serial PRIMARY KEY,
+    "date" VARCHAR,
+	"iucr" VARCHAR,
+	"primary_type" VARCHAR,
+	"description" VARCHAR,
+	"location_description" VARCHAR,
+	"arrest" BOOLEAN,
+	"domestic" BOOLEAN,
+	"year" INT,
+	"latitude" FLOAT,
+	"longitude" FLOAT,
+	"month" INT
 )
 ;
 
 SELECT * FROM chicago_crime;
 
-SELECT "Year", "Month", "Primary_Type", COUNT("Primary_Type")
-FROM chicago_crime
-GROUP BY "Year", "Month", "Primary_Type"
-ORDER BY "Year" DESC;
 
-SELECT "Year", "Month", "Primary_Type", "Description","Arrest", COUNT("Arrest")
+-- Chicago crime month evolution 
+SELECT "year", "month", "primary_type", "description", COUNT("primary_type")
 FROM chicago_crime
-GROUP BY "Year", "Month", "Primary_Type", "Description","Arrest"
-ORDER BY "Year" DESC;
+GROUP BY "year", "month", "primary_type", "description"
+ORDER BY "year" DESC;
 
-SELECT "Year", "Month", "Primary_Type", "Description" , COUNT("Primary_Type")
-FROM chicago_crime
-GROUP BY "Year", "Month", "Primary_Type", "Description"
-ORDER BY "Year" DESC;
 
-SELECT "Year", "Month", "Primary_Type","Description","Location_Description", COUNT("Description")
+-- Chicago crime month evolution  - arrest ratio --
+SELECT "year", "month", "primary_type", "description", "arrest", COUNT("arrest") AS "Arrest Ratio"
 FROM chicago_crime
-GROUP BY "Year", "Month", "Primary_Type", "Location_Description", "Description"
-ORDER BY "Year" DESC;
+GROUP BY "year", "month", "primary_type", "description","arrest"
+ORDER BY "year" DESC;
+
+
+-- Location desciption 
+SELECT "year", "month", "primary_type", "description", "location_description", COUNT("description")
+FROM chicago_crime
+GROUP BY "year", "month", "primary_type", "description", "location_description"
+ORDER BY "year" DESC;
+
+
+-- Primary type and description
+SELECT "year", "month", "primary_type", "description", COUNT("description")
+FROM chicago_crime
+GROUP BY "year", "month", "primary_type", "description"
+ORDER BY "year" DESC;
+
