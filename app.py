@@ -4,14 +4,13 @@ import sqlalchemy
 from sqlalchemy.ext.automap import automap_base
 from sqlalchemy.orm import Session
 from sqlalchemy import create_engine, func
-
 from flask import Flask, jsonify, render_template
 
 
 #################################################
 # Database Setup
 #################################################
-rds_connection_string = "postgres:postgres@localhost:5432/Project_03"
+rds_connection_string = "postgres:123@localhost:5432/Project_03"
 engine = create_engine(f'postgresql://{rds_connection_string}')
 Base = automap_base()
 Base.prepare(engine, reflect=True)
