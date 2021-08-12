@@ -3,18 +3,18 @@ DROP TABLE IF EXISTS chicago_crime;
 
 -- Create the table
 CREATE TABLE chicago_crime (
-    "id" serial PRIMARY KEY,
-    "date" VARCHAR,
-	"iucr" VARCHAR,
-	"primary_type" VARCHAR,
-	"description" VARCHAR,
-	"location_description" VARCHAR,
-	"arrest" BOOLEAN,
-	"domestic" BOOLEAN,
-	"year" INT,
-	"latitude" FLOAT,
-	"longitude" FLOAT,
-	"month" INT
+    id serial PRIMARY KEY,
+    date VARCHAR,
+	iucr VARCHAR,
+	primary_type VARCHAR,
+	description VARCHAR,
+	location_description VARCHAR,
+	arrest BOOLEAN,
+	domestic BOOLEAN,
+	year INT,
+	latitude FLOAT,
+	longitude FLOAT,
+	month INT
 )
 ;
 
