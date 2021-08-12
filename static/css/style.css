@@ -5,20 +5,20 @@ body {
 
 /* jumbotron */
 .jumbotron .h1, .jumbotron h1 {
-  color:#e6e6e6;
+  color:#c9bba7;
 }
 .jumbotron{
-  color: #e6e6e6 ;
-  background-color:#0065A2 !important;
+  color: #c9bba7 ;
+  background-color:#0c1c12 !important;
   }
 
 
 /* Well */
 .well{
-  background-color: #0065A2 !important;
+  background-color: #c9bba7 !important;
   }
 .well .h5, .well h5 {
-  color:#e6e6e6;
+  color:#000000;
 }
 
 
