@@ -5,18 +5,31 @@ body {
 
 /* jumbotron */
 .jumbotron .h1, .jumbotron h1 {
-  color:#ffffff;
+  color:#e6e6e6;
 }
 .jumbotron{
-  color: #ffffff ;
+  color: #e6e6e6 ;
   background-color:#0065A2 !important;
   }
+
+
+/* Well */
+.well{
+  background-color: #0065A2 !important;
+  }
+.well .h5, .well h5 {
+  color:#e6e6e6;
+}
+
 
 /* legend */
 #map,
 body,
 html {
-  height: 100%;
+  position: relative;
+  border-radius: 8px;
+  height: 400px;  /* or as desired */
+  width: 100%;  /* This means "100% of the width of its container", the .col-md-8 */
 }
 .leaflet-popup-content {
   text-align: center;
