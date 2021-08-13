@@ -38,15 +38,15 @@ def api_list():
     """List all available api routes."""
 
     return (
-        f"Available Routes:<br>"
+        f"Available Routes:<br/>"
         f"/api/v1.0/&lt;dropdown&gt;<br/>"
         f"/api/v1.0/&lt;year&gt;<br/>"
         f"/api/v1.0/&lt;year&gt;/&lt;primary_type&gt;"
     )
 
     
-@app.route('/api/v1.0/<year>/<primary_type>')
-def get(year, primary_type):
+@app.route('/api/v1.0/<dropdown>')
+def get(dropdown):
 
     session = Session(engine)
 
@@ -59,7 +59,7 @@ def get(year, primary_type):
     }
 
     session.close()
-    return jsonify(year = [result[0] for result in results_y], primary_type = [result[0] for result in results_d])
+    return jsonify(Year = [result[0] for result in results_y], Primary_Type = [result[0] for result in results_d])
 
 @app.route('/api/v1.0/<year>')
 def filter_year(year):
@@ -69,7 +69,7 @@ def filter_year(year):
     location_bar = session.query(db.primary_type, db.location_description, func.count(db.location_description)).group_by(db.primary_type,db.year, db.location_description).filter(db.year == year).order_by(func.count(db.location_description).desc()).all()
     primarytype_month = session.query(db.primary_type, db.month, func.count(db.primary_type)).group_by(db.primary_type, db.year, db.month).filter(db.year == year).all()
     arrest_count = session.query(db.primary_type, db.arrest, func.count(db.arrest)).group_by(db.primary_type, db.year, db.arrest).filter(db.year == year).all()
-    result_c = {
+    result = {
         "description_count": description_count,
         "primary_type_bymonth": primarytype_month,
         "arrest_count": arrest_count,
@@ -77,7 +77,7 @@ def filter_year(year):
     }
 
     session.close()
-    return jsonify(result_c)
+    return jsonify(result)
 
 @app.route('/api/v1.0/<year>/<primary_type>')
 def filter_yr_type(year, primary_type):
@@ -86,12 +86,12 @@ def filter_yr_type(year, primary_type):
     primary_type = primary_type.upper()
     lat_lon = session.query(db.primary_type, db.date, db.description, db.location_description,db.arrest,db.latitude, db.longitude).filter(db.year == year).filter(db.primary_type == primary_type).all()
 
-    result_d = {
+    result = {
         "lat_lon":lat_lon
     }
     
     session.close()
-    return jsonify(result_d)
+    return jsonify(result)
 
 if __name__ == '__main__':
     app.run(debug=True)

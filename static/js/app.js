@@ -1,5 +1,19 @@
+export async function handler(event) {
+    const response = {
+        statusCode: 200,
+        headers: {
+            "Access-Control-Allow-Headers" : "Content-Type",
+            "Access-Control-Allow-Origin": "http://127.0.0.1:5000/api/v1.0/<year>/<primary_type>",
+            "Access-Control-Allow-Methods": "OPTIONS,POST,GET"
+        },
+        body: JSON.stringify('Hello from Lambda!'),
+    };
+    return response;
+}
+
+
 // JS promise
-d3.json('http://127.0.0.1:5000/api/v1.0/<dropdown>')
+d3.json('http://127.0.0.1:5000/api/v1.0/<year>/<primary_type>')
     .then(function (data) {
         init(data);
         console.log(data);
