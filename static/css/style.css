@@ -21,6 +21,11 @@ body {
   color:#000000;
 }
 
+/* review well */
+.well{
+  width: 320px;
+}
+
 
 /* legend */
 #map,

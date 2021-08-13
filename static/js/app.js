@@ -57,7 +57,7 @@ d3.selectAll("select").on("change", function(){
         primary = this.value;
     }
     console.log(this.value);
-    // function get(c)
+
     build_chart(year, primary)
 });
 
@@ -73,7 +73,7 @@ function build_chart(year, primary) {
             let arrest_count = data.arrest_count;
             let location = data.location;
             let description_count = data.description_count;
-            // Creating a trace for bar chart
+            // Creating a trace for bar chart - Month / Primary type
             let x = []
             let y = []
             primary_month.forEach(function (month) {
@@ -94,7 +94,7 @@ function build_chart(year, primary) {
             // Setting layout for title and bar size
             let layout = {
                 title: {
-                    text: `<b> Monthly count of crime</b>`,
+                    text: `<b> Monthly count of crime: ${(primary)}</b>`,
                     // text: `<b> Monthly count of ${(primary)} crime</b>`,
                     font: {
                         size: 16,
@@ -105,7 +105,7 @@ function build_chart(year, primary) {
             // Defining traceBar
             var traceBar = [traceBar];
             Plotly.newPlot('bar_1', traceBar, layout);
-
+            // Creating a trace for bar chart - Arrest
             let x_1 = []
             let y_1 = []
             arrest_count.forEach(function (arrest) {
@@ -122,8 +122,23 @@ function build_chart(year, primary) {
                     color: 'tomato'
                 }
             }
+            // Setting layout for title and bar size
+            let layout_1= {
+                title: {
+                    text: `<b> Arrest count for: ${(primary)}</b>`,
+                    // text: `<b> Monthly count of ${(primary)} crime</b>`,
+                    font: {
+                        size: 16,
+                    },
+                    height: 500,
+                    width: 600
+                }};
             var traceBar_1 = [traceBar_1];
-            Plotly.newPlot('bar_2', traceBar_1);
+            Plotly.newPlot('bar_2', traceBar_1,layout_1);
+
+            // Setting layout for title and bar size
+
+            
         })
 };
 
