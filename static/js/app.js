@@ -142,7 +142,7 @@ function build_chart(year, primary) {
 
 
             // Leaflet
-
+            
             // Creating the map object
             myMap = L.map("map", {
                 center: [41.8781, -87.6298],
