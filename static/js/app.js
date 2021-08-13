@@ -1,15 +1,14 @@
 // JS promise
-d3.json('http://127.0.0.1:5000/')
+d3.json('http://127.0.0.1:5000/api/v1.0/dropdown')
     .then(function (data) {
         init(data);
     });
 
 // Json organization
 function init(data) {
-    console.log(data.arrest_count);
-    load_dropdown_list(data.results_y);
-    load_dropdown_list(data.results_d);
-    load_dropdown_list(data.results_x);
+    console.log(data);
+    load_dropdown_list(data.year);
+    load_dropdown_list(data.primary_type);
     build_chart('2011');
 };
 

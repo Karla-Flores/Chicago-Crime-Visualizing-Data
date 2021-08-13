@@ -39,10 +39,27 @@ def api_list():
 
     return (
         f"Available Routes:<br/>"
+        f"/api/v1.0/<dropdown><br/>"
         f"/api/v1.0/year<br/>"
         f"/api/v1.0/year/primary_type"
     )
 
+    
+@app.route('/api/v1.0/<dropdown>')
+def get(dropdown):
+
+    session = Session(engine)
+
+    results_y = session.query(db.year).group_by(db.year)
+    results_d = session.query(db.primary_type).group_by(db.primary_type)
+
+    result = {
+        'year': results_y,
+        'primary_type': results_d
+    }
+
+    session.close()
+    return jsonify(Year = [result[0] for result in results_y], Primary_Type = [result[0] for result in results_d])
 
 @app.route('/api/v1.0/<year>')
 def filter_year(year):
