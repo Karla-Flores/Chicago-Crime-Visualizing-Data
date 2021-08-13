@@ -1,15 +1,16 @@
 // JS promise
 d3.json('http://127.0.0.1:5000/api/v1.0/<dropdown>')
     .then(function (data) {
-        console.log(data);
         init(data);
+        console.log(data);
     });
+
 
 // Json organization
 function init(data) {
-    console.log(data);
+    console.log(data.year);
     load_dropdown_list(data.year);
-    load_dropdown_list(data.primary_type);
+    // load_dropdown_list(data.primary_type);
     build_chart('2011');
 };
 
@@ -22,7 +23,7 @@ function load_dropdown_list(year) {
         let att = document.createAttribute('value');
         att.value = year;
         opt.setAttributeNode(att);
-        opt.text = Year;
+        opt.text = year;
         dropdown.appendChild(opt);
     })
 };
