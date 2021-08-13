@@ -39,9 +39,9 @@ def api_list():
 
     return (
         f"Available Routes:<br/>"
-        f"/api/v1.0/<dropdown><br/>"
-        f"/api/v1.0/year<br/>"
-        f"/api/v1.0/year/primary_type"
+        f"/api/v1.0/&lt;dropdown&gt;<br/>"
+        f"/api/v1.0/&lt;year&gt;<br/>"
+        f"/api/v1.0/&lt;year&gt;/&lt;primary_type&gt;"
     )
 
     

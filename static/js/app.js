@@ -1,6 +1,7 @@
 // JS promise
-d3.json('http://127.0.0.1:5000/api/v1.0/dropdown')
+d3.json('http://127.0.0.1:5000/api/v1.0/<dropdown>')
     .then(function (data) {
+        console.log(data);
         init(data);
     });
 
@@ -15,20 +16,20 @@ function init(data) {
 
 // Dropdown menu with Ids
 function load_dropdown_list(year) {
-    let dropdown = document.getElementById('selDataset');
+    let dropdown = document.getElementById('selDataset_1');
     year.forEach(function (year) {
         let opt = document.createElement('option');
         let att = document.createAttribute('value');
         att.value = year;
         opt.setAttributeNode(att);
-        opt.text = year;
+        opt.text = Year;
         dropdown.appendChild(opt);
     })
 };
 
 // Linking id selected on dropdown with function
-function optionChanged(id) {
-    build_chart(id);
+function optionChanged(year) {
+    build_chart(year);
 }
 
 // Leaflet
@@ -44,5 +45,23 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 }).addTo(myMap);
 
+// url = ''
 
+// d3.json(url).then(function (data) {
+//     console.log(data);
+//     L.geoJSON(data, {
+//         onEachFeature: onEachFeature,
+//         // Creating circle marker
+//         pointToLayer: function (feature, latlng) {
+//             console.log('Creatin marker');
+//             return new L.CircleMarker(latlng, {
+//                 // Defining circle radius according to the magnitude
+//                 radius: feature.properties.mag * 4,
+//                 fillColor: getFillColor(feature.geometry.coordinates[2]),
+//                 fillOpacity: 0.6,
+//                 weight: 0
+//             }).addTo(quakes).addTo(myMap);
+//         },
+//     });
+// });
 
