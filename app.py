@@ -10,7 +10,7 @@ from flask import Flask, jsonify, render_template
 #################################################
 # Database Setup
 #################################################
-rds_connection_string = "postgres:postgres@localhost:5432/Project_03"
+rds_connection_string = "postgres:123@localhost:5432/Project_03"
 engine = create_engine(f'postgresql://{rds_connection_string}')
 Base = automap_base()
 Base.prepare(engine, reflect=True)
@@ -30,17 +30,6 @@ app = Flask(__name__)
 
 
 @app.route("/")
-def home():
-#     # Create our session (link) from Python to the DB
-    session = Session(engine)
-
-    results_y = session.query(db.year).group_by(db.year)
-    results_d = session.query(db.primary_type).group_by(db.primary_type)
-    results_x = session.query(db.description).group_by(db.description)
-
-    session.close()
-
-    return render_template('index.html', Year = [result[0] for result in results_y], Primary_Type = [result[0] for result in results_d],Description = [result[0] for result in results_x])
 
 @app.route("/api")
 
@@ -58,24 +47,18 @@ def api_list():
 @app.route('/api/v1.0/<year>')
 def filter_year(year):
     session = Session(engine)
-    # query = f'''
-    # SELECT year, primary_type, description, arrest, COUNT(arrest) AS arrest_ratio
-    # FROM chicago_crime
-    # GROUP BY year, primary_type, description, arrest
-    # ORDER BY year DESC;
-    
-    # '''
-    # result = engine.execute(query).items
 
-    description_count = session.query(db.description, func.count(db.description)).group_by(db.year, db.description).filter(db.year == year).order_by(func.count(db.description).desc()).all()
-    arrest_count = session.query(db.primary_type, func.count(db.arrest)).group_by(db.year, db.primary_type).filter(db.year == year).filter(db.arrest == 'true').all()
-    arrest_count_month = session.query(db.month, db.arrest, func.count(db.arrest)).group_by(db.year, db.month, db.arrest).filter(db.year == year).all()
+    description_count = session.query(db.primary_type, db.description, func.count(db.description)).group_by(db.primary_type,db.year, db.description).filter(db.year == year).order_by(func.count(db.description).desc()).all()
+    location_bar = session.query(db.primary_type, db.location_description, func.count(db.location_description)).group_by(db.primary_type,db.year, db.location_description).filter(db.year == year).order_by(func.count(db.location_description).desc()).all()
+    primarytype_month = session.query(db.primary_type, db.month, func.count(db.primary_type)).group_by(db.primary_type, db.year, db.month).filter(db.year == year).all()
+    arrest_count = session.query(db.primary_type, db.arrest, func.count(db.arrest)).group_by(db.primary_type, db.year, db.arrest).filter(db.year == year).all()
     result = {
         "description_count": description_count,
+        "primary_type_bymonth": primarytype_month,
         "arrest_count": arrest_count,
-        "arrest_count_month": arrest_count_month
+        "location ": location_bar
     }
-    # result = session.query(db.primary_type, func.count(db.arrest), func.count(db.description)).group_by(db.year, db.primary_type).filter(db.year == year).filter(db.arrest == 'true').order_by(func.count(db.description).desc()).all()
+
     session.close()
     return jsonify(result)
 
@@ -83,18 +66,12 @@ def filter_year(year):
 @app.route('/api/v1.0/<year>/<primary_type>')
 def filter_yr_type(year, primary_type):
     session = Session(engine)
+
     primary_type = primary_type.upper()
-    # result = session.query(db.description, func.count(db.description)).group_by(db.year, db.primary_type, db.description).filter(db.year == year).filter(db.primary_type == primary_type).order_by(func.count(db.description).desc()).all()
-    description_count = session.query(db.description, func.count(db.description)).group_by(db.year, db.primary_type, db.description).filter(db.year == year).filter(db.primary_type == primary_type).order_by(func.count(db.description).desc()).all()
-    arrest_count = session.query(db.description, func.count(db.arrest)).group_by(db.year, db.primary_type, db.description, db.arrest).filter(db.year == year).filter(db.primary_type == primary_type).filter(db.arrest == 'true').all()
-    arrest_count_month = session.query(db.month, db.arrest, func.count(db.arrest)).group_by(db.year, db.primary_type, db.month, db.arrest).filter(db.year == year).filter(db.primary_type == primary_type).all()
-    
+    lat_lon = session.query(db.primary_type, db.date, db.description, db.location_description,db.arrest,db.latitude, db.longitude).filter(db.year == year).filter(db.primary_type == primary_type).all()
 
     result = {
-        "description_count": description_count,
-        "arrest_count": arrest_count, 
-        "arrest_count_month": arrest_count_month
-        
+        "lat_lon":lat_lon
     }
     
     session.close()
