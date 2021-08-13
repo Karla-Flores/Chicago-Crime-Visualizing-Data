@@ -55,7 +55,7 @@ d3.selectAll("select").on("change", function(){
 
 
 function build_chart(year) {
-    console.log('build_chartfor' + year);
+    console.log('build_chart for' + year);
     // d3.json('/api/v1.0/year/<year>')
     d3.json('/api/v1.0/year/'+ year)
     // d3.json('/api/v1.0/year/'+ console.log(year))
@@ -81,9 +81,20 @@ function build_chart(year) {
                     color: 'tomato'
                 }
             }
+            // Setting layout for title and bar size
+            let layout = {
+                title: {
+                    text: `<b> Monthly count of crime</b>`,
+                    // text: `<b> Monthly count of ${(primary)} crime</b>`,
+                    font: {
+                        size: 16,
+                    },
+                    height: 500,
+                    width: 600
+                }};
             // Defining traceBar
             var traceBar = [traceBar];
-            Plotly.newPlot('bar_1', traceBar);
+            Plotly.newPlot('bar_1', traceBar, layout);
 
             let x_1 = ["False", "True"]
             let y_1 = [912, 96]
