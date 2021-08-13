@@ -31,8 +31,6 @@ function load_dropdown_list(years) {
         opt.text = year;
         dropdown.appendChild(opt);
     })
-    // Default values for dropdown menu
-    // return years[0]
 };
 
 function load_dropdown_list_too(primaries) {
@@ -46,7 +44,6 @@ function load_dropdown_list_too(primaries) {
         opt.text = primary;
         dropdown.appendChild(opt);
     })
-    // return primaries[0]
 };
 
 // // Linking id selected on dropdown with function
@@ -61,10 +58,8 @@ d3.selectAll("select").on("change", function(){
     }
     console.log(this.value);
     // function get(c)
-    
     build_chart(year, primary)
 });
-
 
 function build_chart(year, primary) {
     console.log('build_chart for' + year + ' and ' + primary);
@@ -119,7 +114,6 @@ function build_chart(year, primary) {
                     y_1.push(arrest[2])
                 }
             });
-            
             var traceBar_1 = {
                 x: x_1,
                 y: y_1,
@@ -132,7 +126,6 @@ function build_chart(year, primary) {
             Plotly.newPlot('bar_2', traceBar_1);
         })
 };
-
 
 // Leaflet
 
