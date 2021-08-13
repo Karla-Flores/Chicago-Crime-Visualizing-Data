@@ -1,25 +1,29 @@
 // JS promise
 d3.json('http://127.0.0.1:5000/api/v1.0/dropdown')
     .then(function (data) {
-        init(data);
+       
+        // Declare variables without var keyword to make them global
+        year = data.Year[0];
+        primary = data.Primary_Type[0];
         console.log(data);
-    });
+        console.log(`Primary type row 8 + ${year} + ${primary}`)
+        init(data);
+        });
+// Refactor so primary and year variables are in scope
 
-
-// // Json organization
+// Json organization
 function init(data) {
     console.log(data.year);
     load_dropdown_list(data.Year);
     load_dropdown_list_too(data.Primary_Type);
-    build_chart('2011');
+    build_chart(year, primary);
 };
 
-
-// // Dropdown menu with Ids
-function load_dropdown_list(year) {
-    console.log(year);
+// Dropdown menu with Ids
+function load_dropdown_list(years) {
+    console.log(years);
     let dropdown = document.getElementById('selDataset_1');
-    year.forEach(function (year) {
+    years.forEach(function (year) {
         let opt = document.createElement('option');
         let att = document.createAttribute('value');
         att.value = year;
@@ -27,12 +31,14 @@ function load_dropdown_list(year) {
         opt.text = year;
         dropdown.appendChild(opt);
     })
+    // Default values for dropdown menu
+    // return years[0]
 };
 
-function load_dropdown_list_too(primary) {
-    console.log(primary);
+function load_dropdown_list_too(primaries) {
+    console.log(primaries);
     let dropdown = document.getElementById('selDataset');
-    primary.forEach(function (primary) {
+    primaries.forEach(function (primary) {
         let opt = document.createElement('option');
         let att = document.createAttribute('value');
         att.value = primary;
@@ -40,13 +46,19 @@ function load_dropdown_list_too(primary) {
         opt.text = primary;
         dropdown.appendChild(opt);
     })
+    // return primaries[0]
 };
-// // Linking id selected on dropdown with function
 
+// // Linking id selected on dropdown with function
 d3.selectAll("select").on("change", function(){
-    let dropdown = this.id;
-    console.log(dropdown);
+    console.log(`row 53 ${year} + ${primary}`);
+    console.log(this.id);
     // ## if dropdown = selDataset_1, update value of year
+    if (this.id === 'selDataset_1'){
+        year = this.value;
+    } else {
+        primary = this.value;
+    }
     console.log(this.value);
     // function get(c)
     
@@ -54,14 +66,15 @@ d3.selectAll("select").on("change", function(){
 });
 
 
-function build_chart(year) {
-    console.log('build_chart for' + year);
+function build_chart(year, primary) {
+    console.log('build_chart for' + year + ' and ' + primary);
     // d3.json('/api/v1.0/year/<year>')
     d3.json('/api/v1.0/year/'+ year)
     // d3.json('/api/v1.0/year/'+ console.log(year))
         .then(function (data) {
             let primary_month = data.primary_type_bymonth;
             console.log(primary_month)
+            console.log(`month row 77 ${data.primary_type_bymonth}`)
             let arrest_count = data.arrest_count;
             let location = data.location;
             let description_count = data.description_count;
@@ -69,8 +82,10 @@ function build_chart(year) {
             let x = []
             let y = []
             primary_month.forEach(function (month) {
-                x.push(month[1]),
-                y.push(month[2])
+                if (month[0]===primary){
+                    x.push(month[1]),
+                    y.push(month[2])
+                }
             });
 
             var traceBar = {
@@ -96,11 +111,15 @@ function build_chart(year) {
             var traceBar = [traceBar];
             Plotly.newPlot('bar_1', traceBar, layout);
 
-            let x_1 = ["False", "True"]
-            let y_1 = [912, 96]
-            // arrest_count.forEach(function (arrest) {
-            //     y.push(arrest[2])
-            // });
+            let x_1 = []
+            let y_1 = []
+            arrest_count.forEach(function (arrest) {
+                if (arrest[0]===primary){
+                    x_1.push(arrest[1]),
+                    y_1.push(arrest[2])
+                }
+            });
+            
             var traceBar_1 = {
                 x: x_1,
                 y: y_1,
