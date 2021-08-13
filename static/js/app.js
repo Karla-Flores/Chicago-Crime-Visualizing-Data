@@ -136,58 +136,24 @@ function build_chart(year, primary) {
             var traceBar_1 = [traceBar_1];
             Plotly.newPlot('bar_2', traceBar_1,layout_1);
 
-            // Setting layout for title and bar size
+            // Setting layout for title and bar size   
 
-            
+
+
+
+            // Leaflet
+
+            // Creating the map object
+            myMap = L.map("map", {
+                center: [41.8781, -87.6298],
+                zoom: 8,
+            });
+            // Adding the tile layer
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(myMap);
+
         })
 };
 
-// Leaflet
 
-// Creating the map object
-myMap = L.map("map", {
-    center: [41.8781, -87.6298],
-    zoom: 8,
-});
-
-// Adding the tile layer
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-}).addTo(myMap);
-
-// Starting the conection
-
-// d3.json('/api/v1.0/<year>/<primary_type>')
-//     .then(function (year) {
-//         init(year);
-//         console.log(data);
-//     });
-
-
-// url = '/api/v1.0/<year>/<primary_type>'
-// d3.json(url).then(function (data) {
-//     console.log(data);
-//     L.geoJSON(data, {
-//         onEachFeature: onEachFeature,
-//         // Creating circle marker
-//         pointToLayer: function (feature, latlng) {
-//             console.log('Creatin marker');
-//             return new L.CircleMarker(latlng, {
-//                 // Defining circle radius according to the magnitude
-//                 radius: feature.properties.mag * 4,
-//                 fillColor: getFillColor(feature.geometry.coordinates[2]),
-//                 fillOpacity: 0.6,
-//                 weight: 0
-//             }).addTo(quakes).addTo(myMap);
-//         },
-//     });
-// });
-
-// function onEachFeature(feature, layer) {
-//     console.log('Creating pop up');
-//     // Time format
-//     var format = d3.timeFormat('%d-%b-%Y at %H:%M');
-//     //Pop up layer using title, title and magnitude
-//     var popupText = (layer.bindPopup('<h2>' + 'Primary Type : ' + '<br>' + feature.properties.title + '</h2>' + '<hr>' + '<h3>' + 'Date : ' + (format(new Date(feature.properties.time))) + '</h3>' + '<h3>' + 'Description: ' + feature.properties.type + '</h3>' + '<h3>' + 'Location : ' + feature.properties.mag + '</h3>' + '<h3>' + 'Arrest : ' + feature.geometry.coordinates[2] + '</h3>'
-//     )).addTo(myMap);
-// };
