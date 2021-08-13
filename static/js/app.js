@@ -46,9 +46,10 @@ function load_dropdown_list_too(primary) {
 d3.selectAll("select").on("change", function(){
     let dropdown = this.id;
     console.log(dropdown);
-
     // ## if dropdown = selDataset_1, update value of year
     console.log(this.value);
+    // function get(c)
+    
     build_chart(year, primary)
 });
 
