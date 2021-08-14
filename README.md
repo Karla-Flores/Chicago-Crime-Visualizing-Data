@@ -22,7 +22,7 @@
 <h2>Tools used</h2>
 <ul>
   <li>Python and Jupyter Notebook</li>
-  <li>Libraries: pandas, numpy, sklearn, pickle, keras, tensorflow</li>
+  <li>Libraries: pandas, numpy</li>
   <li>Flask</li>
   <li>Tableau</li>
   <li>HTML/CSS</li>
