@@ -64,7 +64,7 @@ d3.selectAll("select").on("change", function(){
 // Creating the map object
 myMap = L.map("map", {
     center: [41.8781, -87.6298],
-    zoom: 8,
+    zoom: 10,
 });
 // Adding the tile layer
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -153,14 +153,14 @@ function build_chart(year, primary) {
                 .then(function (data) {
                     console.log(data);
                     
-                    
+                    data = data.lat_lon
                     
                     let markers = L.markerClusterGroup();
                     data.forEach(element => {
                         // Check for the location property.
                         // if (element.location){
                         // Add a new marker to the cluster group, and bind a popup.
-                        markers.addLayer(L.marker(element[5], element[6]))
+                        markers.addLayer(L.marker([element[5], element[6]]))
                     });
                     markers.addTo(myMap)
                     
