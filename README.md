@@ -35,15 +35,15 @@
 <table>
     <tr>
       <td>Monthly crime evolution</td>
-      <td>image 2</td>
+      <td><img src='https://github.com/Karla-Flores/Project-03/blob/main/Screenshots/Chicago_Crime_1.png'></td>
     </tr>
     <tr>
-      <td>Monthly crime evolution</td>
-      <td>image 2</td> 
+      <td>Arrest evolution</td>
+      <td><img src='https://github.com/Karla-Flores/Project-03/blob/main/Screenshots/Chicago_Crime_2.png'></td> 
     </tr>
     <tr>
-      <td>Crime map for year and type of map</td>
-      <td>image 3</td> 
+      <td>Crime map for year and type of crime</td>
+      <td><img src='https://github.com/Karla-Flores/Project-03/blob/main/Screenshots/Chicago_Crime_Map.png'></td> 
     </tr>
  </table>
 
