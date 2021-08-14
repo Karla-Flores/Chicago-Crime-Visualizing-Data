@@ -61,6 +61,16 @@ d3.selectAll("select").on("change", function(){
     build_chart(year, primary)
 });
 
+// Creating the map object
+myMap = L.map("map", {
+    center: [41.8781, -87.6298],
+    zoom: 8,
+});
+// Adding the tile layer
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+}).addTo(myMap);
+
 function build_chart(year, primary) {
     console.log('build_chart for' + year + ' and ' + primary);
     // d3.json('/api/v1.0/year/<year>')
@@ -137,23 +147,39 @@ function build_chart(year, primary) {
             Plotly.newPlot('bar_2', traceBar_1,layout_1);
 
             // Setting layout for title and bar size   
-
-
-
-
             // Leaflet
+            // Get Data
+            d3.json('/api/v1.0/' + year + '/' + primary)
+                .then(function (data) {
+                    console.log(data);
+                    
+                    
+                    
+                    let markers = L.markerClusterGroup();
+                    data.forEach(element => {
+                        // Check for the location property.
+                        // if (element.location){
+                        // Add a new marker to the cluster group, and bind a popup.
+                        markers.addLayer(L.marker(element[5], element[6]))
+                    });
+                    markers.addTo(myMap)
+                    
+                //     var markers = L.markerClusterGroup();
+                //     for (var i = 0; i < 200; i++) {
+                //         // Set the data location property to a variable.
+                //         var location = [data.data.data[i].lat, data.data.data[i].lon]
+                        // console.log(location)
+                        // L.marker(location).bindPopup("<h1>" + data.data.stations[i].name + "</h1> <hr> <h3> StationID: " + data.data.stations[i].station_id + "</h3> <h3> Capacity: " + data.data.stations[i].capacity + "<h4> Location: " + location + "</h4>").addTo(myMap);
+                //       };
+                //     })
+
+                // });
+                    // var markers = L.markerClusterGroup()
+                    
+                    // L.marker.bindPopup(`<h1>${element.properties.neighborhood}</h1>`)
+                    // console.log(markers);
+                    // Add our marker cluster layer to the map.
+                    // myMap.addLayer(markers)
             
-            // Creating the map object
-            myMap = L.map("map", {
-                center: [41.8781, -87.6298],
-                zoom: 8,
-            });
-            // Adding the tile layer
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-            }).addTo(myMap);
-
-        })
-};
-
-
+            })
+})}
