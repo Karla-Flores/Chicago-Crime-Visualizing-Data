@@ -122,39 +122,14 @@ function build_chart(year, primary) {
                     font: {
                         size: 16,
                     },
-                    height: 200,
+                    height: 100,
                     width: 400
                 }};
             // Defining traceBar
             var traceBar = [traceBar];
             Plotly.newPlot('bar_1', traceBar, layout);
 
-
-            // Creating a trace for bar chart - Arrest
-            // let x_1 = []
-            // let y_1 = []
-            // let y_2 = []
-            // primary_month.forEach(function (month) {
-            //     if (month[0]===primary){
-            //         if (month[4]=='true') {
-            //             y_1.push(month[1])
-            //         }
-            //         if (month[4]=='false'){
-            //             y_2.push(month[2])
-            //         }
-            //     }
-            // });
-            // var traceBar_1 = {
-            //     x: x_1,
-            //     y: y_1,
-            //     type: 'bar',
-            //     marker: {
-            //         color: 'tomato'
-            //     }
-            // }
-    
-
-
+            // creating a barchart for total arrest count true and false for the primary type in the year
             let x_1 = []
             let y_1 = []
             arrest_count.forEach(function (arrest) {
@@ -179,64 +154,74 @@ function build_chart(year, primary) {
                     font: {
                         size: 16,
                     },
-                    height: 200,
+                    height: 100,
                     width: 400
                 }};
             var traceBar_1 = [traceBar_1];
             Plotly.newPlot('bar_2', traceBar_1,layout_1);
 
             //taking the code from chart.js to create a multiline chart for true and false cases of crime by month for each year
-        d3.json(`http://127.0.0.1:5000/api/v1.0/monthly/${year}/${primary}`).then(function(arrest_data){
+            d3.json(`http://127.0.0.1:5000/api/v1.0/monthly/${year}/${primary}`).then(function(data){
 
-            console.log(arrest_data);
-            const labels = [
-                'Jan',
-                'Feb',
-                'Mar',
-                'Apr',
-                'May',
-                'June',
-                'July',
-                'Aug',
-                'Sep',
-                'Oct',
-                'Nov',
-                'Dec'
-            ];
+                document.getElementById("myChartDiv").innerHTML = "<canvas id='myChart' width='300' height='120'></canvas>"
 
-            var config = {
-                type: 'line',
-                data: {
-                    labels: labels,
-                    datasets: [
-                        {
-                            label: 'True',
-                            backgroundColor: 'rgb(255, 99, 132)',
-                            borderColor: 'rgb(255, 99, 132)',
-                            data: arrest_data.results.map(d => d.True)
-                        },
-                        {
-                            label: 'False',
-                            backgroundColor: 'rgb(75, 192, 192)',
-                            borderColor: 'rgb(75, 192, 192)',
-                            data: arrest_data.results.map(d => d.False)
+                console.log(data);
+                const labels = [
+                    'Jan',
+                    'Feb',
+                    'Mar',
+                    'Apr',
+                    'May',
+                    'June',
+                    'July',
+                    'Aug',
+                    'Sep',
+                    'Oct',
+                    'Nov',
+                    'Dec'
+                ];
+
+                var config = {
+                    type: 'line',
+                    data: {
+                        labels: labels,
+                        datasets: [
+                            {
+                                label: 'True',
+                                backgroundColor: 'rgb(255, 99, 132)',
+                                borderColor: 'rgb(255, 99, 132)',
+                                data: data.results.map(d => d.True)
+                            },
+                            {
+                                label: 'False',
+                                backgroundColor: 'rgb(75, 192, 192)',
+                                borderColor: 'rgb(75, 192, 192)',
+                                data: data.results.map(d => d.False)
+                            }
+                        ]
+                    },
+                    options: {
+                        // responsive: false, 
+                        plugins: {
+                            legend: {
+                                title: {
+                                    display: true,
+                                    font: {
+                                        size: 20
+                                    },
+                                    text: 'Monthly Arrest by: '
+                                }
+                            }
                         }
-                    ]
-                },
-                options: {
-                    responsive: true,
-                    title: {
-                        display: true,
-                        text: 'Chart.js Line Chart'
+                        
                     }
-                }
-            };
+                };
 
-            var myChart = new Chart(
-                document.getElementById('myChart').getContext('2d'),
-                config
-            );
-        });            
+                var myChart = new Chart(
+                    document.getElementById('myChart').getContext('2d'),
+                    config
+                );
+            });            
             
 
             // Setting layout for title and bar size   

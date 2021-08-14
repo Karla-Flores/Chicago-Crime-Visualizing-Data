@@ -31,10 +31,10 @@ body {
 #map,
 body,
 html {
-  position: relative;
+  /* position: relative; */
   border-radius: 8px;
-  height: 1000px;  /* or as desired */
-  width: 100%;  /* This means "100% of the width of its container", the .col-md-8 */
+  height: 800px;  /* or as desired */
+  width: 100%;  
 }
 .leaflet-popup-content {
   text-align: center;
