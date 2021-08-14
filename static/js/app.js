@@ -188,14 +188,14 @@ function build_chart(year, primary) {
                         datasets: [
                             {
                                 label: 'True',
-                                backgroundColor: 'rgb(255, 99, 132)',
-                                borderColor: 'rgb(255, 99, 132)',
+                                backgroundColor: 'rgb(237, 201, 87)',
+                                borderColor: 'rgbrgb(75, 192, 192)',
                                 data: data.results.map(d => d.True)
                             },
                             {
                                 label: 'False',
-                                backgroundColor: 'rgb(75, 192, 192)',
-                                borderColor: 'rgb(75, 192, 192)',
+                                backgroundColor: 'rgb(237, 201, 87)',
+                                borderColor: 'rgb(223, 61, 39)',
                                 data: data.results.map(d => d.False)
                             }
                         ]
@@ -209,7 +209,7 @@ function build_chart(year, primary) {
                                     font: {
                                         size: 20
                                     },
-                                    text: 'Monthly Arrest by: '
+                                    text: `Monthly Arrest by Crime: ${(primary)}`
                                 }
                             }
                         }
@@ -235,30 +235,11 @@ function build_chart(year, primary) {
                     
                     let markers = L.markerClusterGroup();
                     data.forEach(element => {
-                        // Check for the location property.
-                        // if (element.location){
                         // Add a new marker to the cluster group, and bind a popup.
                         markers.addLayer(L.marker([element[5], element[6]]).bindPopup(`<h5>Primary Type: ${element[0]}</h5><hr><br>Date: ${element[1]}<br>Crime Description: ${element[2]}<br>location: ${element[3]}`)
                         )
                     });
                     markers.addTo(myMap)
-                    
-                //     var markers = L.markerClusterGroup();
-                //     for (var i = 0; i < 200; i++) {
-                //         // Set the data location property to a variable.
-                //         var location = [data.data.data[i].lat, data.data.data[i].lon]
-                        // console.log(location)
-                        // L.marker(location).bindPopup("<h1>" + data.data.stations[i].name + "</h1> <hr> <h3> StationID: " + data.data.stations[i].station_id + "</h3> <h3> Capacity: " + data.data.stations[i].capacity + "<h4> Location: " + location + "</h4>").addTo(myMap);
-                //       };
-                //     })
-
-                // });
-                    // var markers = L.markerClusterGroup()
-                    
-                    // L.markers.bindPopup(`<h1>${element[0]}</h1>`)
-                    // console.log(markers);
-                    // Add our marker cluster layer to the map.
-                    // myMap.addLayer(markers)
             
             })
 })}
