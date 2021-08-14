@@ -24,7 +24,7 @@
   <li>Python and Jupyter Notebook</li>
   <li>Libraries: pandas, numpy</li>
   <li>Flask</li>
-  <li>Tableau</li>
+  <li>Leaflet</li>
   <li>HTML/CSS</li>
   <li>Javascript</li>
   <li>Bootstrap</li>
