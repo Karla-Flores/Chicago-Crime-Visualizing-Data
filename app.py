@@ -1,4 +1,5 @@
 from sqlalchemy.sql.expression import distinct
+import pandas as pd
 import numpy as np
 import sqlalchemy
 from sqlalchemy.ext.automap import automap_base
@@ -10,7 +11,7 @@ from flask import Flask, jsonify, render_template
 #################################################
 # Database Setup
 #################################################
-rds_connection_string = "postgres:123@localhost:5432/Project_03"
+rds_connection_string = "postgres:postgres@localhost:5432/Project_03"
 engine = create_engine(f'postgresql://{rds_connection_string}')
 Base = automap_base()
 Base.prepare(engine, reflect=True)
@@ -119,6 +120,22 @@ def filter_yr_type(year, primary_type):
 
     session.close()
     return jsonify(result)
+
+@app.route('/api/v1.0/monthly/<year>/<primary_type>')
+def filter_month_type(year, primary_type):
+    session = Session(engine)
+
+    primary_type = primary_type.upper()
+    arrest_count_month = session.query(db.month, db.arrest, func.count(db.arrest)).group_by(db.year, db.primary_type, db.month, db.arrest).filter(db.year == year).filter(db.primary_type == primary_type).all()
+    # arrest_count_month_false = session.query(db.month, func.count(db.arrest)).group_by(db.year, db.primary_type, db.month, db.arrest).filter(db.year == year).filter(db.primary_type == primary_type).filter(db.arrest == 'true').all()
+    arr_by_month =[{"Month": i, "True":None, "False":None} for i in range(1,13)]
+
+    for item in arrest_count_month:
+	    arr_by_month[int(item[0]-1)][str(item[1])] = item[2]
+    # df = pd.DataFrame(arrest_count_month)
+    # result = df.to_dict(orient="records")
+    session.close()
+    return {"results":arr_by_month}
 
 
 if __name__ == '__main__':

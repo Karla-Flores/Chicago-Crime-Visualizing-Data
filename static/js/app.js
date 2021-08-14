@@ -1,7 +1,7 @@
 // JS promise
 d3.json('http://127.0.0.1:5000/api/v1.0/dropdown')
     .then(function (data) {
-       
+
         // Declare variables without var keyword to make them global
         year = data.Year[0];
         primary = data.Primary_Type[0];
@@ -84,11 +84,24 @@ function build_chart(year, primary) {
             let location = data.location;
             let description_count = data.description_count;
             // Creating a trace for bar chart - Month / Primary type
-            let x = []
+            let x = [
+                'Jan',
+                'Feb',
+                'Mar',
+                'Apr',
+                'May',
+                'June',
+                'July',
+                'Aug',
+                'Sep',
+                'Oct',
+                'Nov',
+                'Dec'
+            ]
             let y = []
             primary_month.forEach(function (month) {
                 if (month[0]===primary){
-                    x.push(month[1]),
+                    // x.push(month[1])
                     y.push(month[2])
                 }
             });
@@ -109,13 +122,39 @@ function build_chart(year, primary) {
                     font: {
                         size: 16,
                     },
-                    height: 500,
-                    width: 600
+                    height: 200,
+                    width: 400
                 }};
             // Defining traceBar
             var traceBar = [traceBar];
             Plotly.newPlot('bar_1', traceBar, layout);
+
+
             // Creating a trace for bar chart - Arrest
+            // let x_1 = []
+            // let y_1 = []
+            // let y_2 = []
+            // primary_month.forEach(function (month) {
+            //     if (month[0]===primary){
+            //         if (month[4]=='true') {
+            //             y_1.push(month[1])
+            //         }
+            //         if (month[4]=='false'){
+            //             y_2.push(month[2])
+            //         }
+            //     }
+            // });
+            // var traceBar_1 = {
+            //     x: x_1,
+            //     y: y_1,
+            //     type: 'bar',
+            //     marker: {
+            //         color: 'tomato'
+            //     }
+            // }
+    
+
+
             let x_1 = []
             let y_1 = []
             arrest_count.forEach(function (arrest) {
@@ -140,11 +179,76 @@ function build_chart(year, primary) {
                     font: {
                         size: 16,
                     },
-                    height: 500,
-                    width: 600
+                    height: 200,
+                    width: 400
                 }};
             var traceBar_1 = [traceBar_1];
             Plotly.newPlot('bar_2', traceBar_1,layout_1);
+
+            //taking the code from chart.js to create a multiline chart for true and false cases of crime by month for each year
+            d3.json(`http://127.0.0.1:5000/api/v1.0/monthly/${year}/${primary}`).then(function(arrest_data){
+
+                console.log(arrest_data);
+                const labels = [
+                    'Jan',
+                    'Feb',
+                    'Mar',
+                    'Apr',
+                    'May',
+                    'June',
+                    'July',
+                    'Aug',
+                    'Sep',
+                    'Oct',
+                    'Nov',
+                    'Dec'
+                ];
+                // var chart_1 = {
+                //     labels: labels,
+                //     datasets: [
+                //     {
+                //         label: 'True',
+                //         backgroundColor: 'rgb(255, 99, 132)',
+                //         borderColor: 'rgb(255, 99, 132)',
+                //         data: arrest_data.results.map(d=>d.True)
+                //         },
+                //     {
+                //         label: 'False',
+                //         backgroundColor: 'rgb(255, 99, 132)',
+                //         borderColor: 'rgb(255, 99, 132)',
+                //         data: arrest_data.results.map(d=>d.False)
+                //         }
+                // ]
+                // };
+    
+                var config = {
+                    type: 'line',
+                    data: {
+                        labels: labels,
+                        datasets: [
+                        {
+                            label: 'True',
+                            backgroundColor: 'rgb(255, 99, 132)',
+                            borderColor: 'rgb(255, 99, 132)',
+                            data: arrest_data.results.map(d=>d.True)
+                            },
+                        {
+                            label: 'False',
+                            backgroundColor: 'rgb(255, 99, 132)',
+                            borderColor: 'rgb(255, 99, 132)',
+                            data: arrest_data.results.map(d=>d.False)
+                            }
+                    ]
+                    },
+                    options: {}
+                };
+    
+                var myChart = new Chart(
+                    document.getElementById('myChart').getContext('2d'),
+                    config
+                );
+            });            
+            
 
             // Setting layout for title and bar size   
             // Leaflet
@@ -160,7 +264,8 @@ function build_chart(year, primary) {
                         // Check for the location property.
                         // if (element.location){
                         // Add a new marker to the cluster group, and bind a popup.
-                        markers.addLayer(L.marker([element[5], element[6]]))
+                        markers.addLayer(L.marker([element[5], element[6]]).bindPopup(`<h1>Primary Type: ${element[0]}</h1><hr><br>Date: ${element[1]}<br>Crime Description: ${element[2]}<br>location: ${element[3]}`)
+                        )
                     });
                     markers.addTo(myMap)
                     
@@ -176,7 +281,7 @@ function build_chart(year, primary) {
                 // });
                     // var markers = L.markerClusterGroup()
                     
-                    // L.marker.bindPopup(`<h1>${element.properties.neighborhood}</h1>`)
+                    // L.markers.bindPopup(`<h1>${element[0]}</h1>`)
                     // console.log(markers);
                     // Add our marker cluster layer to the map.
                     // myMap.addLayer(markers)

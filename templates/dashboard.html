@@ -32,7 +32,7 @@
 
 <body>
   <!-- Jumbotron -->
-  <div class="container">
+  <div class="container-fluid ">
     <div class="row">
       <div class="col-md-12 jumbotron text-center">
         <h1>Chicago Crime Dashboard</h1>
@@ -40,48 +40,71 @@
           victim) that occurred in the City of Chicago from 2011 to 2020</p>
       </div>
     </div>
-
-    <!-- Year, Primary type & Description filter -->
     <div class="row">
-      <div class="col-md-2">
-        <div class="well">
+      <div class="col-md-6">
+        <div class="well container-fluid">
           <h5>Year:</h5>
           <select id="selDataset_1" ></select>
         </div>
-        <div class="well">
+      </div>
+        
+      <div class="col-md-6">
+        <div class="well container-fluid">
           <h5>Primary Type:</h5>
           <select id="selDataset"></select>
         </div>
-        <!-- <div class="well">
-          <h5>Description:</h5>
-          <select id="selDataset" onchange="optionChanged(this.value)"></select>
-        </div> -->
+        
+      </div>
+        
+    </div>
 
 
-      </div>
+    </div>
+
+    <!-- Year, Primary type & Description filter -->
+    <div class="row">
       <div class="col-md-5">
-        <div id="bar_1"></div>
+        
+        <div id="map"></div>
+      
       </div>
-      <div class="col-md-5">
-        <div id="bar_2"></div>
+
+      
+  
+      <div class="col-md-7">
+        <div class="row">
+          <div id="bar_1"></div>
+        </div>
+        
+        <div class="row">
+          <canvas id="myChart" width='300' height='100'></canvas>
+        </div>
+        <div class="row">
+          <div id="bar_2"></div>
+        </div>
+        
       </div>
-      <div class="col-md-5">
-        <div id="bar_3"></div>
-      </div>
-      <div class="col-md-5">
-        <div id="bar"></div>
-      </div>
+      <!-- <div class="col-md-5"> -->
+        
+      <!-- </div> -->
+      <!-- <div class="col-md-5"> -->
+        <!-- <div id="bar_3"></div> -->
+      <!-- </div id="bar"></div> -->
+      <!-- </div> -->
+      <!-- <div class="col-md-5"> -->
+        <!-- <div></div> -->
     </div>
 
 
     <!-- The div that holds our map -->
-    <div id="map"></div>
+    <!-- <div id="map"></div> -->
   </div>
 
 
 
   <script src="https://d3js.org/d3.v7.min.js"></script>
   <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.0/chart.min.js"></script>
   <script src="./static/js/app.js"></script>
   <!-- Leaflet JS -->
   <!-- <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
@@ -89,7 +112,8 @@
     crossorigin="" />
   <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
     integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
-    crossorigin=""></script> -->
+    crossorigin=""></scrip> -->
+  <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> -->
 </body>
 
 </html>
