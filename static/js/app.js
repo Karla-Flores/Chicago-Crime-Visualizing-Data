@@ -9,8 +9,8 @@ d3.json('http://127.0.0.1:5000/api/v1.0/dropdown')
         console.log(`Primary type row 8 + ${year} + ${primary}`)
         init(data);
         });
-// Refactor so primary and year variables are in scope
 
+// Refactor so primary and year variables are in scope
 // Json organization
 function init(data) {
     console.log(data.year);
@@ -19,7 +19,7 @@ function init(data) {
     build_chart(year, primary);
 };
 
-// Dropdown menu with Ids
+// Dropdown menu
 function load_dropdown_list(years) {
     console.log(years);
     let dropdown = document.getElementById('selDataset_1');
@@ -33,6 +33,7 @@ function load_dropdown_list(years) {
     })
 };
 
+// Year and primary type selected
 function load_dropdown_list_too(primaries) {
     console.log(primaries);
     let dropdown = document.getElementById('selDataset');
@@ -46,18 +47,16 @@ function load_dropdown_list_too(primaries) {
     })
 };
 
-// // Linking id selected on dropdown with function
+// Linking year and primary type selected on dropdown with function for graphics and map
 d3.selectAll("select").on("change", function(){
     console.log(`row 53 ${year} + ${primary}`);
     console.log(this.id);
-    // ## if dropdown = selDataset_1, update value of year
     if (this.id === 'selDataset_1'){
         year = this.value;
     } else {
         primary = this.value;
     }
     console.log(this.value);
-
     build_chart(year, primary)
 });
 
@@ -66,6 +65,7 @@ myMap = L.map("map", {
     center: [41.8781, -87.6298],
     zoom: 10,
 });
+
 // Adding the tile layer
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -73,9 +73,7 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 
 function build_chart(year, primary) {
     console.log('build_chart for' + year + ' and ' + primary);
-    // d3.json('/api/v1.0/year/<year>')
     d3.json('/api/v1.0/year/'+ year)
-    // d3.json('/api/v1.0/year/'+ console.log(year))
         .then(function (data) {
             let primary_month = data.primary_type_bymonth;
             console.log(primary_month)
@@ -101,7 +99,8 @@ function build_chart(year, primary) {
             let y = []
             primary_month.forEach(function (month) {
                 if (month[0]===primary){
-                    // x.push(month[1])
+                    // x.push(month[1]) 
+                    // Nulling push and assing months 
                     y.push(month[2])
                 }
             });
@@ -236,7 +235,7 @@ function build_chart(year, primary) {
                     let markers = L.markerClusterGroup();
                     data.forEach(element => {
                         // Add a new marker to the cluster group, and bind a popup.
-                        markers.addLayer(L.marker([element[5], element[6]]).bindPopup(`<h5>Primary Type: ${element[0]}</h5><hr><br>Date: ${element[1]}<br>Crime Description: ${element[2]}<br>location: ${element[3]}`)
+                        markers.addLayer(L.marker([element[5], element[6]]).bindPopup(`<h5><strong>Primary Type:</strong> <br>${element[0]}</h5><hr><strong>Date : </strong> ${element[1]}<br><strong>Crime Description : </strong>${element[2]}<br><strong>Location : </strong>${element[3]}`)
                         )
                     });
                     markers.addTo(myMap)
