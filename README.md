@@ -11,7 +11,7 @@
 
 <h2>Topic and Description</h2>
 <strong>Topic:</strong>
-<p>Data displaying of crime in Chicago City</p>
+<p> Historical crime data visualizations of Chicago City</p>
 <strong>Description:</strong>
 <p>This dataset reflects reported incidents of crime that occurred in the City of Chicago from 2011 to 2020.</p>
 
@@ -23,12 +23,13 @@
 <ul>
   <li>Python and Jupyter Notebook</li>
   <li>Libraries: pandas, numpy</li>
+  <li>PostgreSQL</li>
   <li>Flask</li>
-  <li>Leaflet</li>
-  <li>HTML/CSS</li>
+  <li>D3.js</li>
   <li>Javascript</li>
   <li>Bootstrap</li>
-  <li>D3.js</li>
+  <li>Leaflet</li>
+  <li>HTML/CSS</li>
 </ul>
 
 <h2>Dashboard</h2>
