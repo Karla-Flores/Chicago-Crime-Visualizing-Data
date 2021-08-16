@@ -16,7 +16,6 @@ engine = create_engine(f'postgresql://{rds_connection_string}')
 Base = automap_base()
 Base.prepare(engine, reflect=True)
 db = Base.classes.chicago_crime
-
 print(engine.table_names())
 
 #################################################
@@ -42,9 +41,11 @@ def api_list():
 
     return (
         f"Available Routes:<br/>"
-        f"/api/v1.0/dropdown<br/>"
+        f"/api/v1.0/dashboard<br/>"
         f"/api/v1.0/year/&lt;year&gt;<br/>"
+        f"/api/v1.0/monthly/&lt;year&gt;/&lt;primary_type&gt;<br>"
         f"/api/v1.0/&lt;year&gt;/&lt;primary_type&gt;"
+        f""
     )
 
 

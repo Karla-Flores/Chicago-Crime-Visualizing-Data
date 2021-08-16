@@ -40,6 +40,7 @@
           victim) that occurred in the City of Chicago from 2011 to 2020.</p>
       </div>
     </div>
+    <!-- Filters -->
     <div class="row p-2">
       <div class="col-md-6">
         <div class="well container-fluid">
@@ -55,7 +56,7 @@
         </div>
         
       </div>
-        
+        <!-- MAP -->
     </div>
     <div class="row p-2">
       <div class="col-md-5">
@@ -63,33 +64,27 @@
         <div id="map"></div>
       
       </div>
-
-      
-  
+      <!-- Graph 1 : Monthly count by crime -->
       <div class="col-md-7">
         <div class="row">
           <div id="bar_1"></div>
         </div>
-        
+        <br><br>
+        <!-- Graph 2 : Monthly count by arrest -->
         <div class="row" id="myChartDiv">
           <canvas id="myChart" width='960' height='200'></canvas>
         </div>
+        <br><br>
+         <!-- Graph 3 : Total count by arrest -->
         <div class="row">
           <div id="bar_2"></div>
         </div>
         
       </div>
 
-        <!-- <div></div> -->
     </div>
 
-
-
-    <!-- The div that holds our map -->
-    <!-- <div id="map"></div> -->
   </div>
-
-
 
   <script src="https://d3js.org/d3.v7.min.js"></script>
   <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
