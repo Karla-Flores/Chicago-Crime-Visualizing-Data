@@ -2,10 +2,10 @@
 <hr>
 <h2>Team</h2>
 <ul>
-  <li>Harika Peddiraju</li>
-  <li>Ulises Domínguez</li>
-  <li>Yuting Chien</li>
-  <li>Karla Flores</li>
+  <li><a href='https://github.com/harikapeddi'>Harika Peddiraju</a></li>
+  <li><a href='https://github.com/uldom'>Ulises Domínguez</a></li>
+  <li><a href='https://github.com/nievesyu'>Yuting Chien</a></li>
+  <li><a href='https://github.com/Karla-Flores'>Karla Flores</a></li>
   </li>
 </ul>
 
