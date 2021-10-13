@@ -1,4 +1,5 @@
-<h1> Project 03 - Chicago crime - Dataset</h1>
+<h1> Project 03 - Chicago Crime, Visualizing-Data
+</h1>
 <hr>
 <h2>Team</h2>
 <ul>
